@@ -1,14 +1,30 @@
-# React Native iPay88 Integration
+# React Native iPay88 Integration (v1.0.0)
+Updated on 22 July 2021 by Zarul Rahim
+
+## SDK Version Recommendation 
+You can find the sdk library and see the version from attachment that you received from iPay88 team. 
+
+#### Android
+`IPHSD_SDK_11022021.aar`
+
+#### iOS
+`libipay88sdk.a` (version 1.0.6.6)
 
 ## Getting started
 
+### Mostly automatic installation with autolinking (RN > 0.60)
+
+`$ yarn add react-native-ipay88-integration`
+
+or
+
 `$ npm install react-native-ipay88-integration --save`
 
-### Mostly automatic installation
+### Mostly automatic installation with react-native link (RN < 0.60)
 
 `$ react-native link react-native-ipay88-integration`
 
-### Manual installation
+### Manual installation (Rare case to run manual installation. Not recommended)
 
 #### iOS
 
@@ -138,9 +154,7 @@ export default class App extends Component {
 }
 ```
 
-### Make Payment
-
-// Refer to ipay88 docs for more info
+### Payment Parameters
 
 * paymentId // optional
 * merchantKey // required
@@ -156,6 +170,8 @@ export default class App extends Component {
 * utfLang // optional
 * country // required
 * backendUrl // required
+
+Refer the documentation that you received from iPay88 team for more info about this parameters. 
 
 ### Success Notify
 
@@ -180,3 +196,6 @@ export default class App extends Component {
 * amount
 * remark
 * error
+
+### NOTES
+Please noted that this package is developed based on iPay88 Mobile SDK library. Hopefully it helps our fellow React Native developers to implement iPay88 Mobile SDK into their RN app. Besides that, i'm welcoming contributors to make sure this package well maintained. Thank you. Sincerely, ZR. 
