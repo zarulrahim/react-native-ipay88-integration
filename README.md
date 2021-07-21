@@ -2,6 +2,10 @@
 
 ## Getting started
 
+`$ yarn add react-native-ipay88-integration`
+
+or
+
 `$ npm install react-native-ipay88-integration --save`
 
 ### Mostly automatic installation
