@@ -1,4 +1,4 @@
-# React Native iPay88 Integration (v1.0.0)
+# React Native iPay88 Integration
 Updated on 22 July 2021 by Zarul Rahim
 
 ## SDK Version Recommendation 
