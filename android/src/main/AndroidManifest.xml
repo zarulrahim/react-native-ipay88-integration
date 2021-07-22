@@ -6,7 +6,7 @@
     <uses-permission android:name="android.permission.ACCESS_WIFI_STATE"/>
     <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW"/>
 
-    <application>
+    <application tools:replace="android:allowBackup" android:allowBackup="true">
     	<uses-library android:name="org.apache.http.legacy" android:required="false" />
         <activity android:name="com.ipay.IPayIHActivity" android:configChanges="orientation|screenSize"/>
         <activity android:name="com.ipay.IPayIHAcitivityR" android:configChanges="orientation|screenSize"/>
