@@ -50,6 +50,16 @@ or
       compile project(':react-native-ipay88-integration')
     ```
 
+## Workaround
+
+You need to add this into your `/main/AndroidManifest.xml`,
+
+1. Inside `<manifest>` tag, add `xmlns:tools="http://schemas.android.com/tools"`
+
+and then, 
+
+2. Inside `<application>` tag, add `tools:replace="android:allowBackup" android:allowBackup="true"`
+
 ## Usage
 
 ```javascript
