@@ -68,7 +68,7 @@ public class IPay88Module extends ReactContextBaseJavaModule {
         }
     }
 
-    public static final class ResultDelegate implements IPayIHResultDelegate, Serializable {
+    static public class ResultDelegate implements IPayIHResultDelegate, Serializable {
 
         public void onPaymentSucceeded(String TransId, String RefNo, String Amount, String Remark, String AuthCode) 
         {
