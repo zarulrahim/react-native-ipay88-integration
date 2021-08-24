@@ -1,4 +1,4 @@
-import { Component } from 'react';
+import { useEffect, Component } from 'react';
 import { NativeModules, DeviceEventEmitter, Platform, NativeEventEmitter } from 'react-native';
 import { PropTypes } from 'prop-types';
 
@@ -11,52 +11,50 @@ let successSubscription;
 let failedSubscription;
 let cancelSubscription;
 
-export default class IPay extends Component {
-  static propTypes = {
+export default IPay = (props) => {
+  propTypes = {
     successNotify: PropTypes.func.isRequired,
     failedNotify: PropTypes.func.isRequired,
     cancelNotify: PropTypes.func.isRequired,
   };
 
-  componentWillMount() {
+  useEffect(() => {
     if (isAndroid) {
       // Android
-      successSubscription = DeviceEventEmitter.addListener('ipay88:success', (data) => this.onSuccess(data));
-      failedSubscription = DeviceEventEmitter.addListener('ipay88:failed', (data) => this.onFailed(data));
-      cancelSubscription = DeviceEventEmitter.addListener('ipay88:canceled', (data) => this.onCanceled(data));
+      successSubscription = DeviceEventEmitter.addListener('ipay88:success', (data) => onSuccess(data));
+      failedSubscription = DeviceEventEmitter.addListener('ipay88:failed', (data) => onFailed(data));
+      cancelSubscription = DeviceEventEmitter.addListener('ipay88:canceled', (data) => onCanceled(data));
     } else {
       // ios
-      successSubscription = iosEvent.addListener('ipay88:success', (data) => this.onSuccess(data));
-      failedSubscription = iosEvent.addListener('ipay88:failed', (data) => this.onFailed(data));
-      cancelSubscription = iosEvent.addListener('ipay88:canceled', (data) => this.onCanceled(data));
+      successSubscription = iosEvent.addListener('ipay88:success', (data) => onSuccess(data));
+      failedSubscription = iosEvent.addListener('ipay88:failed', (data) => onFailed(data));
+      cancelSubscription = iosEvent.addListener('ipay88:canceled', (data) => onCanceled(data));
     }
-  }
+    return () => {
+      successSubscription.remove();
+      failedSubscription.remove();
+      cancelSubscription.remove();
+    }
+  }, [])
 
-  componentDidMount() {
-    successSubscription.remove();
-    failedSubscription.remove();
-    cancelSubscription.remove();
-  }
-
-  onSuccess = (data) => {
-    this.props.successNotify(data);
+  const onSuccess = (data) => {
+    props.successNotify(data);
   };
 
-  onCanceled = (data) => {
-    this.props.cancelNotify(data);
+  const onCanceled = (data) => {
+    props.cancelNotify(data);
   };
 
-  onFailed = (data) => {
-    this.props.failedNotify(data);
+  const onFailed = (data) => {
+    props.failedNotify(data);
   };
 
-  render() {
-    return null;
-  }
-}
+  return (null)
+};
 
 const Pay = (data) => {
   const {
+    paymentId = '',
     merchantKey = '',
     merchantCode = '',
     referenceNo = '',
@@ -66,12 +64,14 @@ const Pay = (data) => {
     userName = '',
     userEmail = '',
     userContact = '',
+    remark = '',
+    utfLang = '',
     country = '',
     backendUrl = '',
   } = data;
 
   const errors = {};
-  // if (paymentId === '') {errors.paymentId = '`paymentId` is required'; // optional
+  if (paymentId === '') errors.paymentId = '`paymentId` is required'; // optional
   if (merchantKey === '') errors.merchantKey = '`merchantKey` is required';
   if (merchantCode === '') errors.merchantCode = '`merchantCode` is required`';
   if (referenceNo === '') errors.referenceNo = '`referenceNo` is required';
@@ -81,8 +81,8 @@ const Pay = (data) => {
   if (userName === '') errors.userName = '`userName` is required';
   if (userEmail === '') errors.userEmail = '`userEmail` is required';
   if (userContact === '') errors.userContact = '`userContact` is required';
-  // if (remark === '') errors.remark = '`remark` is required'; // optional
-  // if (utfLang === '') errors.utfLang = '`utfLang` is required'; // optional
+  if (remark === '') errors.remark = '`remark` is required'; // optional
+  if (utfLang === '') errors.utfLang = '`utfLang` is required'; // optional
   if (country === '') errors.country = '`country` is required';
   if (backendUrl === '') errors.backendUrl = '`backendUrl` is required';
 
